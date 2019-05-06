@@ -4,10 +4,9 @@ import java.time.LocalDate
 
 import tickets.core.Status._
 
-case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: Option[Long] = None) {
+case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: Option[Long] = None, ticketsSoldForDay: Option[Int] = None) {
 
-  def availability(queryDate: LocalDate, showDate: LocalDate,
-                   ticketsSoldForDay: Option[Int] = None): ShowAvailability = {
+  def availability(queryDate: LocalDate, showDate: LocalDate): ShowAvailability = {
 
     val isInSmallHall = isInTheSmallHall(showDate)
     val diff = showDate.toEpochDay - queryDate.toEpochDay
@@ -30,11 +29,10 @@ case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: O
       throw new RuntimeException("This should never happen, if is exhaustive")
   }
 
-  def availabilityWithPrice(queryDate: LocalDate, showDate: LocalDate,
-                            ticketsSoldForDay: Option[Int] = None): ShowAvailability = {
+  def availabilityWithPrice(queryDate: LocalDate, showDate: LocalDate): ShowAvailability = {
     val price = priceFor(showDate)
 
-    availability(queryDate, showDate, ticketsSoldForDay).copy(price = Some(price))
+    availability(queryDate, showDate).copy(price = Some(price))
   }
 
   def priceFor(showDate: LocalDate): Int = {

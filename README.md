@@ -38,9 +38,9 @@ In order to fulfill all requirements, I found the best way to model the domain i
 
 ````
 //some code has been ommited
-case class Show(title: String, openingDay: String, genre: String, id: Option[Long] = None) {
-    def availability(queryDate: String, showDate: String, ticketsSoldForDay: Option[Int] = None): ShowAvailability
-    def availabilityWithPrice(queryDate: String, showDate: String, ticketsSoldForDay: Option[Int] = None): ShowAvailability
+case class Show(title: String, openingDay: String, genre: String, id: Option[Long] = None, ticketsSoldForDay: Option[Int] = None) {
+    def availability(queryDate: String, showDate: String): ShowAvailability
+    def availabilityWithPrice(queryDate: String, showDate: String): ShowAvailability
 }
 ````
 
@@ -49,7 +49,7 @@ It will be used to read through the list of shows and produce its availabilitie
 Also there's 3 peculiarities to note:
  * There's 2 `availability` methods, one includes the price, used for the second use case
  * The optional `id` field will be used later to introduce a database for orders. Being a scala optional parameters, it can be ignored when not needed
- * The `availability` methods optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
+ * The `Show` optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
 
 The rest are dumb data holders except for `Inventory` who builds the correct user facing structure. Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int` 
 

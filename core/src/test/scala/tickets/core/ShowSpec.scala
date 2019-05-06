@@ -57,9 +57,10 @@ class ShowSpec extends FlatSpec with Matchers {
   }
 
   it should "be able to recieve an ammount of sold tickets for the day" in {
-    val _25daysBefore = aDrama.openingDay.minusDays(25)
+    val aDramaWithSomeSoldTickets = aDrama.copy(ticketsSoldForDay =  Some(4))
+    val _25daysBefore = aDramaWithSomeSoldTickets.openingDay.minusDays(25)
 
-    val availability = aDrama.availability(_25daysBefore, aDrama.openingDay, Some(4))
+    val availability = aDramaWithSomeSoldTickets.availability(_25daysBefore, aDrama.openingDay)
 
     availability should have (
       'status (openForSale), 'ticketsLeft (196), 'ticketsAvailable (6))
