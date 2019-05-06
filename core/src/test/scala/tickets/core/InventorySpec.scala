@@ -17,9 +17,10 @@ class InventorySpec extends FlatSpec with Matchers {
       Show("Everyman", parse("2018-08-01"), drama))
 
     Inventory.of(shows, queryDate, showDate) shouldBe
-      Inventory(
+      Inventory(List(
         Genre(comedy, List(ShowAvailability("Comedy of Errors", 200, 0, saleNotStarted))),
         Genre(musical, List(ShowAvailability("Cats", 200, 0, saleNotStarted))))
+      )
   }
 
   it should "be built exactly as the second example of the given excercise" in {
@@ -32,10 +33,10 @@ class InventorySpec extends FlatSpec with Matchers {
       Show("Everyman", parse("2018-08-01"), drama))
 
     Inventory.of(shows, queryDate, showDate) shouldBe
-      Inventory(
+      Inventory(List(
         Genre(drama, List(ShowAvailability("Everyman", 100, 10, openForSale))),
         Genre(comedy, List(ShowAvailability("Comedy of Errors", 100, 10, openForSale))),
-        Genre(musical, List(ShowAvailability("Cats", 50, 5, openForSale))))
+        Genre(musical, List(ShowAvailability("Cats", 50, 5, openForSale)))))
   }
 
   it should "be able to build it with prices" in {
@@ -48,9 +49,9 @@ class InventorySpec extends FlatSpec with Matchers {
       Show("Everyman", parse("2018-08-01"), drama))
 
     Inventory.withPrice(shows, queryDate, showDate) shouldBe
-      Inventory(
+      Inventory(List(
         Genre(drama, List(ShowAvailability("Everyman", 100, 10, openForSale, price = Some(40)))),
         Genre(comedy, List(ShowAvailability("Comedy of Errors", 100, 10, openForSale, price = Some(50)))),
-        Genre(musical, List(ShowAvailability("Cats", 50, 5, openForSale, price = Some(70)))))
+        Genre(musical, List(ShowAvailability("Cats", 50, 5, openForSale, price = Some(70))))))
   }
 }

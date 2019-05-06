@@ -2,7 +2,7 @@ package tickets.core
 
 import java.time.LocalDate
 
-case class Inventory(genres: Genre*)
+case class Inventory(inventory: List[Genre])
 
 object Inventory {
   def of(shows: List[Show], queryDate: LocalDate, showDate: LocalDate): Inventory =
@@ -23,6 +23,6 @@ object Inventory {
         case (genre, showsByGenre) => Genre(genre, showsByGenre.map(showTransform))
       })
 
-    Inventory(built.toSeq:_*)
+    Inventory(built.toList)
   }
 }

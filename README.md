@@ -6,16 +6,21 @@ Helps John get a clear grasp on ticket inventory. Especially how many tickets ar
 
 This document assumes you have `sbt` and `scala` installed
 
-### CLI
+### Running the CLI tool
 
-Run `sbt stage` on the root TODO
+Run `sbt stage` on the root. Then you can cd into `cli/target/universal/stage/bin/` where you'll find `tickets4sale-cli`
 
-### Website
+Usage: `tickets4sale-cli <input-csv> <query-date> <show-date>`
+
+You can find a sample `input.csv` in the `resources` folder. The input **should always have headers**
+
+### Running the website
 
 **start locally**: `sbt run` and open a browser in `localhost:9000`
 
 **for production**: `sbt stage` and then TODO
 
+# Decisions
 
 ## Structure
 
@@ -55,5 +60,9 @@ Also there's 3 peculiarities to note:
   
 Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int`
 
+## CLI
 
+It should be as simple as it gets, reading input, validating and then using what was built in `core` for the actual logic. Not really worth testing except for the ShowParser which reads CSV (couldn't find a decent CSV reader)
+
+I'm using spray-json to turn an inventory into json. The result is almost identical to what was asked, save for the fact that I'm using camelCase instead of snake_case for json fields
 
