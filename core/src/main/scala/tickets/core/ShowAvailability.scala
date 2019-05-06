@@ -5,5 +5,5 @@ case class ShowAvailability(
                              ticketsLeft: Int,
                              ticketsAvailable:
                              Int, status: String,
-                             id: Option[Long],
-                             price: Option[Int])
+                             id: Option[Long] = None,
+                             price: Option[Int] = None)
