@@ -5,7 +5,8 @@ import java.time.LocalDate
 import tickets.core.Status._
 
 case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: Option[Long] = None, ticketsSoldForDay: Option[Int] = None) {
-  val INTERVAL_CORRECTION = 5; val A_DAY = 1
+  val INTERVAL_CORRECTION = 5;
+  val A_DAY = 1
 
   def availability(queryDate: LocalDate, showDate: LocalDate): ShowAvailability = {
 
@@ -20,7 +21,10 @@ case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: O
     else if (25 <= diff)
       availability(if (isInSmallHall) 100 else 200, 0, saleNotStarted)
     else if (25 > diff && diff >= 5) {
-      val ticketsPerDay = if(isInSmallHall) 5 else 10
+      // tickets left is a function like f(x) = tickets*x where tickets {10 if bighall, 5 if smallhall} and x in [20; 1]
+      // since sale is between days 24 to 5 we have an INTERVAL_CORRECTION(5) to have it between 19 and 0
+      // also we correct by adding A_DAY(1) to have the actual correct interval of [20; 1]
+      val ticketsPerDay = if (isInSmallHall) 5 else 10
       val ticketsLeft = (ticketsPerDay * (diff - INTERVAL_CORRECTION + A_DAY)) - ticketsSoldForDay.getOrElse(0)
       val ticketsAvailable = ticketsPerDay - ticketsSoldForDay.getOrElse(0)
 
