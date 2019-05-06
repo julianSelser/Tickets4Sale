@@ -83,4 +83,8 @@ It consists of a frontend and a backend. Solves both second and bonus third use 
 
 ### Frontend
 
-Its a simple statically served **React SPA** without **Redux**. Everything is bundled from `/resources` and no build tool is needed (no `npm`, no `webpack`, thanks jesus) 
+Its a simple statically served **React SPA** without **Redux**. Everything is bundled from `/resources` and no build tool is needed (no `npm`, no `webpack`, thanks jesus)
+
+**DISCLAIMER:** As a consequence of not using a build tool, the setup is not suited for production. I couldn't find a decent `sbt` plugin that works
+
+### Backend 
