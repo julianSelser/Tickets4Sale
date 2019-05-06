@@ -6,7 +6,8 @@ scalaVersion := "2.12.8"
 
 // common dependencies
 libraryDependencies in ThisBuild ++= Seq(
-  "com.typesafe" % "config" % "1.2.0"
+  "com.typesafe" % "config" % "1.2.0",
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
 
 lazy val root = (project in file(".")).aggregate(core, cli, web)

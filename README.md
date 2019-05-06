@@ -44,12 +44,12 @@ case class Show(title: String, openingDay: String, genre: String, id: Option[Lon
 }
 ````
 
-It will be used to read through the list of shows and produce its availabilities
+It will be used to read through the list of shows and produce its availabilitie
 
 Also there's a few peculiarities to note:
  * The optional `id` field will be used later to introduce a database for orders. Being a scala optional parameters, it can be ignored when not needed
  * The `availability` methods optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
 
-The rest are dumb data holders except for `Inventory` who builds the correct user facing structure. Note everything in `core` is **immutable** 
+The rest are dumb data holders except for `Inventory` who builds the correct user facing structure. Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int` 
 
 
