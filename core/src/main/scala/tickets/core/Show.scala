@@ -15,11 +15,11 @@ case class Show(title: String, openingDay: LocalDate, genre: Genres.Value, id: O
 
     if (diff < 0)
       availability(0, 0, inThePast)
-    else if (diff <= 5 && diff >= 0)
+    else if (5 > diff && diff >= 0)
       availability(0, 0, soldOut)
-    else if (25 < diff)
+    else if (25 <= diff)
       availability(if (isInSmallHall) 100 else 200, 0, saleNotStarted)
-    else if (25 >= diff && diff > 5) {
+    else if (25 > diff && diff >= 5) {
       val ticketsPerDay = if(isInSmallHall) 5 else 10
       val ticketsLeft = (ticketsPerDay * (diff - INTERVAL_CORRECTION + A_DAY)) - ticketsSoldForDay.getOrElse(0)
       val ticketsAvailable = ticketsPerDay - ticketsSoldForDay.getOrElse(0)

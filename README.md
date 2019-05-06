@@ -26,7 +26,7 @@ You can find a sample `input.csv` in the `resources` folder. The input **should 
 
 There is a root `build.sbt` and a subproject with its own for each different usage of the core business code
 
-The idea is that each submodule can be worked on and built independently, ideally moved to its own repo in the future. Also, there will be a `Main` for each project
+The idea is that each submodule can be worked on and built independently, ideally moved to its own repo in the future. Also, there is potentially a `Main` for each project
 
     tickets4sale
     |
@@ -37,7 +37,9 @@ The idea is that each submodule can be worked on and built independently, ideall
     ├── build.sbt
     └── README.md
 
-## Core
+## Core module
+
+Holds everything *business domain* related, mostly pure scala code. Will be used by the other modules to implement the use cases. The important thing is that we have a reusable core independent of any application
 
 In order to fulfill all requirements, I found the best way to model the domain is to place an emphasis on the `Show`, with an interface like:
 
@@ -49,16 +51,23 @@ case class Show(title: String, openingDay: String, genre: String, id: Option[Lon
 }
 ````
 
-It will be used to read through the list of shows and produce its availabilitie
+It will be used to read through the list of shows and produce its availabilities
 
 Also there's 3 peculiarities to note:
  * There's 2 `availability` methods, one includes the price, used for the second use case
  * The optional `id` field will be used later to introduce a database for orders. Being a scala optional parameters, it can be ignored when not needed
  * The `Show` optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
 
-`Inventory` builds the correct user facing structure. Tests in `InventorySpec` were made to match the given excercise specifications exactly
+`Inventory` builds the correct user facing structure. Tests in `InventorySpec` were made to match the given excercise specifications exactly. You may recognize the following from the excercise's **page 3**:
+
+```
+      Inventory(List(
+        Genre(drama, List(ShowAvailability("Everyman", 100, 10, openForSale))),
+        Genre(comedy, List(ShowAvailability("Comedy of Errors", 100, 10, openForSale))),
+        Genre(musical, List(ShowAvailability("Cats", 50, 5, openForSale)))))
+```
   
-Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int`
+Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int` as its not the focus of the excercise to correctly handle money (with `BigDecimal`, transactions and all its beauty)
 
 ## CLI
 
@@ -66,3 +75,12 @@ It should be as simple as it gets, reading input, validating and then using what
 
 I'm using spray-json to turn an inventory into json. The result is almost identical to what was asked, save for the fact that I'm using camelCase instead of snake_case for json fields
 
+This takes care of the first use case
+
+## Web
+
+It consists of a frontend and a backend. Solves both second and bonus third use case
+
+### Frontend
+
+Its a simple statically served **React SPA** without **Redux**. Everything is bundled from `/resources` and no build tool is needed (no `npm`, no `webpack`, thanks jesus) 
