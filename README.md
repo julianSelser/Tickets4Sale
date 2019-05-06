@@ -21,15 +21,35 @@ Run `sbt stage` on the root TODO
 
 There is a root `build.sbt` and a subproject with its own for each different usage of the core business code
 
-The idea is that each submodule can be worked on and built independently, ideally moved to its own repo in the future
-
+The idea is that each submodule can be worked on and built independently, ideally moved to its own repo in the future. Also, there will be a `Main` for each project
 
     tickets4sale
     |
-    ├── cli                     # CLI application
     ├── core                    # Core business code
+    ├── cli                     # CLI application
     ├── web                     # Web application
     ├── project
     ├── build.sbt
     └── README.md
+
+## Core
+
+In order to fulfill all requirements, I found the best way to model the domain is to place an emphasis on the `Show`, with an interface like:
+
+````
+//some code has been ommited
+case class Show(title: String, openingDay: String, genre: String, id: Option[Long] = None) {
+    def availability(queryDate: String, showDate: String, ticketsSoldForDay: Option[Int] = None): ShowAvailability
+    def availabilityWithPrice(queryDate: String, showDate: String, ticketsSoldForDay: Option[Int] = None): ShowAvailability
+}
+````
+
+It will be used to read through the list of shows and produce its availabilities
+
+Also there's a few peculiarities to note:
+ * The optional `id` field will be used later to introduce a database for orders. Being a scala optional parameters, it can be ignored when not needed
+ * The `availability` methods optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
+
+The rest are dumb data holders except for `Inventory` who builds the correct user facing structure. Note everything in `core` is **immutable** 
+
 

@@ -25,4 +25,4 @@ lazy val cli = Project(
 lazy val core = Project(
   id = "core",
   base = file("core")
-).enablePlugins(JavaAppPackaging)
+)
