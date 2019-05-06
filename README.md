@@ -51,6 +51,9 @@ Also there's 3 peculiarities to note:
  * The optional `id` field will be used later to introduce a database for orders. Being a scala optional parameters, it can be ignored when not needed
  * The `Show` optionally take a number of tickets sold for the `showDate`. While not needed for the 1° and 2° use case, it helps with the bonus
 
-The rest are dumb data holders except for `Inventory` who builds the correct user facing structure. Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int` 
+`Inventory` builds the correct user facing structure. Tests in `InventorySpec` were made to match the given excercise specifications exactly
+  
+Note everything in `core` is **immutable**. Also all the prices will be modeled as `Int`
+
 
 
