@@ -5,12 +5,12 @@ const Layout = ({children}) => {
       <main>{children}</main>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
 
 const PropTypes = window.PropTypes;
 
 Layout.propTypes = {
   children: PropTypes.element.isRequired,
-};
+}

@@ -13,5 +13,5 @@ const App = () => {
         </Switch>
       </Layout>
     </HashRouter>
-  );
-};
+  )
+}

@@ -3,5 +3,5 @@ const Footer = () => {
     <footer>
       <p>Made with 💪 by Julian</p>
     </footer>
-  );
-};
+  )
+}
