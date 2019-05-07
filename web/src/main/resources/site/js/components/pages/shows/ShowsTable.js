@@ -1,4 +1,4 @@
-const ShowsTable = ({ genreShows }) => {
+const ShowsTable = ({ chosenDate, genreShows }) => {
     let genreName = genreShows.genre
 
     return <div>
@@ -12,14 +12,16 @@ const ShowsTable = ({ genreShows }) => {
                 <th>Price</th>
                 <th>Actions</th>
             </tr>
-            { genreShows.shows.map(show => (
+            { genreShows.shows
+                .map(show => Object.assign(show, {date: chosenDate}))
+                .map(show => (
                  <tr>
                     <td>{show.title}</td>
                     <td>{show.ticketsLeft}</td>
                     <td>{show.ticketsAvailable}</td>
                     <td>{show.status}</td>
                     <td>{show.price}</td>
-                    <td><a href="#"><NavLink to={"/order/" + show.id + toQueryString(show)}>order</NavLink></a></td>
+                    <td><a className='order-link' href="#"><NavLink to={"/order/" + show.id + toQueryString(show)}>order</NavLink></a></td>
                 </tr>
             ))}
         </table>

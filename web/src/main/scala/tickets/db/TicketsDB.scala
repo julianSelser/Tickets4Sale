@@ -27,6 +27,7 @@ object TicketsDB extends TicketsDB {
         id serial not null primary key,
         order_date date not null,
         show_id int not null,
+        price int not null,
         foreign key (show_id) references shows(id)
       )
       """.execute.apply()

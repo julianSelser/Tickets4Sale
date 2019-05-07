@@ -12,5 +12,4 @@ object FrontendRoutes {
     pathPrefix("site") {
       getFromResourceDirectory("site")
     }
-
 }

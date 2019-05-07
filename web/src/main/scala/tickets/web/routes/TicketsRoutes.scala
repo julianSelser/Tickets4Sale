@@ -14,31 +14,44 @@ import tickets.core.Inventory
 import tickets.core.format.InventoryJsonFormat
 import tickets.core.parser.ShowParser
 import tickets.db.ShowRepository
-import tickets.dto.Query
+import tickets.dto.{Order, ShowDateQuery}
 
 import scala.io.Source._
 
 object TicketsRoutes extends InventoryJsonFormat {
-  implicit val queryFormat = jsonFormat1(Query)
+  implicit val orderFormat = jsonFormat3(Order)
+  implicit val queryFormat = jsonFormat1(ShowDateQuery)
 
   def routes =
+    pathPrefix("orders") {
+      post {
+        entity(as[Order]) { order =>
+          val result = ShowRepository.save(order)
+
+          if(result.isRight)
+            complete(StatusCodes.OK, result.right.get)
+          else
+            complete(StatusCodes.BadRequest, result.left.get)
+        }
+      }
+    } ~
     pathPrefix("inventory") {
       post {
-        entity(as[Query]) { query =>
-          val shows = ShowRepository.all
+        entity(as[ShowDateQuery]) { query =>
+          val shows = ShowRepository.allFor(query.showDate)
 
-          complete(Inventory.withPrices(shows, LocalDate.now(), query.requestDate))
+          complete(Inventory.withPrices(shows, LocalDate.now(), query.showDate))
         }
       } ~
       storeUploadedFile("csv", readFile) {
         case (_, file) =>
-          val shows = ShowParser.parseWithIndex(fromFile(file))
+          val shows = ShowParser.parse(fromFile(file))
 
-          ShowRepository.save(shows)
+          ShowRepository.saveInventory(shows)
 
           complete(StatusCodes.OK)
       }
     }
 
-  def readFile(fileInfo: FileInfo) = createTempFile(fileInfo.fileName, System.currentTimeMillis().toString)
+  private def readFile(fileInfo: FileInfo) = createTempFile(fileInfo.fileName, System.currentTimeMillis().toString)
 }

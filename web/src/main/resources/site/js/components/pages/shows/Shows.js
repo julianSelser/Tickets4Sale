@@ -11,14 +11,22 @@ class Shows extends Component {
         this.fetchInventory()
     }
 
+    getShowDate() {
+        let current = this.showDateInput.current
+        let date = current && current.value || window.saved || toIsoDate(new Date())
+
+        window.saved = date
+
+        return date
+    }
+
     fetchInventory() {
         let self = this
-        let current = this.showDateInput.current
-        let showDate = current && current.value || toIsoDate(new Date())
+        let showDate = this.getShowDate()
 
         fetch("inventory", {
                 method: "POST",
-                body: JSON.stringify({ showDate: showDate }),
+                body: JSON.stringify({ showDate }),
                 headers:{
                     'Content-Type': 'application/json'
                 }
@@ -34,9 +42,11 @@ class Shows extends Component {
           <div>
             <br />
             <label>Show date:</label>
-            <input className='inline' type='date' ref={this.showDateInput} defaultValue={ toIsoDate(new Date()) }/>
+            <input className='inline' type='date' ref={this.showDateInput} defaultValue={ this.getShowDate() }/>
             <button onClick={ () => this.fetchInventory() } id='showDateSubmit' className='inline'>Submit</button>
-            { inventory.map(item => <ShowsTable genreShows={item}></ShowsTable>) }
+            { inventory.map(
+                item => <ShowsTable chosenDate={this.getShowDate()} genreShows={item}></ShowsTable>)
+            }
           </div>
       )
   }
