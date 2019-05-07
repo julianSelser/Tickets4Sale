@@ -90,6 +90,7 @@ Its a simple statically served **React SPA** without **Redux**. Everything is bu
 While the excercise said that *the inventory would be set by the website and the user doesnt have to upload* I developed the feature anyways in order to test thoroughly, I think John will like it. **IMPORTANT NOTE**: Use `input.csv` to test for orders as the `original.csv` is set in the past   
 
 **DISCLAIMER:** As a consequence of not using a build tool, the setup is not suited for production. I couldn't find a decent `sbt` plugin that works
+
 **DISCLAIMER2:** Im no frontender, so some bits may look, erm... unrefined
 
 ### Backend 
@@ -100,3 +101,5 @@ While the third use case may be tricky, it really helped to plan ahead:
 
  * As explained in the **core** section, we are able to specify how many tickets were sold for the day. Now its a matter of saving the orders and counting them by day to get the current availability
  * The only other ingredient is to `left join` the shows with their orders before serving the inventory
+ 
+Also, we are now saving orders with their price, so John could easily get a report on how much money is making
