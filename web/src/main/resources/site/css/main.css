@@ -1,5 +1,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 
 .navLinks {
@@ -34,10 +35,6 @@ body {
   text-decoration: none;
 }
 
-form {
-  margin-left: 1rem;
-}
-
 input, textarea, button {
   display: block;
 }
@@ -59,4 +56,40 @@ footer {
 .heart {
   color: maroon;
   font-weight: bold;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 5px;
+}
+
+th {
+  text-align: left;
+  background: #5555;
+}
+
+main {
+  width: 95%;
+  margin: auto;
+}
+
+#orderBtn {
+  margin: auto;
+}
+
+order {
+  text-align: center;
+}
+
+.error {
+    color: red
 }

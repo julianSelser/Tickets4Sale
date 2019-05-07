@@ -12,7 +12,7 @@ const App = () => {
           <Route path='/shows' component={Shows} />
 
           <Route path='/upload' component={UploadInventory} />
-          <Route path='/order' component={Order} />
+          <Route path='/order/:id' component={Order} />
           <Route path='*' component={NotFound} />
         </Switch>
       </Layout>
