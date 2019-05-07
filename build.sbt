@@ -7,32 +7,17 @@ scalaVersion := "2.12.8"
 mainClass in Compile := (mainClass in Compile in web).value
 
 libraryDependencies in ThisBuild ++= Seq(
+  "org.slf4j" % "slf4j-nop" % "1.7.25",
   "com.typesafe.akka" %% "akka-actor" % "2.5.19",
   "com.typesafe.akka" %% "akka-stream" % "2.5.19",
   "com.typesafe.akka" %% "akka-http" % "10.1.3",
   "com.typesafe.akka" %% "akka-http-spray-json" % "10.0.5",
-  "org.scalatest" %% "scalatest" % "3.0.5" % "test",
-  "com.github.tototoshi" %% "scala-csv" % "1.3.5"
+  "com.h2database" % "h2" % "1.4.197",
+  "org.scala-lang.modules" %% "scala-collection-compat" % "0.1.1",
+  "org.scalikejdbc" %% "scalikejdbc" % "3.3.2",
+  "com.github.tototoshi" %% "scala-csv" % "1.3.5",
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
-
-
-// this is the root project, aggregating all sub projects
-//lazy val root = Project(
-//  id = "root",
-//  base = file("."),
-//  // configure your native packaging settings here
-//  settings = Seq(
-//    maintainer := "John Smith <john.smith@example.com>",
-//    packageDescription := "Fullstack Application",
-//    packageSummary := "Fullstack Application",
-//    // entrypoint
-//    mainClass in Compile := Some("de.mukis.frontend.ProductionServer")
-//  ),
-//  // always run all commands on each sub project
-//  aggregate = Seq(frontend, backend, api)
-//).enablePlugins(JavaServerAppPackaging) // enable app packaging on this project
-//  .dependsOn(frontend, backend, api) // this does the actual aggregation
-
 
 lazy val root = (project in file("."))
   .aggregate(core, cli, web)

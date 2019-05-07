@@ -104,3 +104,13 @@ button {
   text-decoration: none;
   font-size: 16px;
 }
+
+#showDateSubmit {
+    padding: 3px
+}
+
+.inline {
+    padding: 0.6px;
+    margin-left: 5px;
+    display: inline-block
+}

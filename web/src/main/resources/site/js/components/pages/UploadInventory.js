@@ -1,8 +1,8 @@
 class UploadInventory extends React.Component {
     constructor(props) {
       super(props);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.fileInput = React.createRef();
+      this.handleSubmit = this.handleSubmit.bind(this)
+      this.fileInput = React.createRef()
       this.state = {
         uploadResult: ''
       }

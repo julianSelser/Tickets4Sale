@@ -10,7 +10,7 @@ import scala.io.Source
 
 class ShowParserSpec extends FlatSpec with Matchers {
   "Show parser" should "read csv a parse it into a show list" in {
-    val shows = ShowParser.parse(Source.fromResource("input.csv"))
+    val shows = ShowParser.parse(Source.fromResource("original.csv"))
 
     shows shouldBe List(
       Show("Cats", parse("2018-06-01"), musical),
@@ -19,7 +19,7 @@ class ShowParserSpec extends FlatSpec with Matchers {
   }
 
   it should "read csv a parse it with ids" in {
-    val shows = ShowParser.parseWithIndex(Source.fromResource("input.csv"))
+    val shows = ShowParser.parseWithIndex(Source.fromResource("original.csv"))
 
     shows shouldBe List(
       Show("Cats", parse("2018-06-01"), musical, id = Some(1)),

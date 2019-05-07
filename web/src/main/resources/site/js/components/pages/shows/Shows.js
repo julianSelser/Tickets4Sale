@@ -3,50 +3,41 @@ const { Component } = window.React
 class Shows extends Component {
     constructor(){
         super()
+        this.showDateInput = React.createRef()
         this.state = {
-            shows: {
-                     "inventory": [{
-                       "genre": "drama",
-                       "shows": [{
-                         "id": 1,
-                         "title": "Everyman",
-                         "ticketsLeft": 100,
-                         "ticketsAvailable": 10,
-                         "status": "Open for sale",
-                         "price": 40
-                       }]
-                     }, {
-                       "genre": "comedy",
-                       "shows": [{
-                         "id": 2,
-                         "title": "Comedy of Errors",
-                         "ticketsLeft": 100,
-                         "ticketsAvailable": 10,
-                         "status": "Open for sale",
-                         "price": 50
-                       }]
-                     }, {
-                       "genre": "musical",
-                       "shows": [{
-                         "id": 3,
-                         "title": "Cats",
-                         "ticketsLeft": 50,
-                         "ticketsAvailable": 5,
-                         "status": "Open for sale",
-                         "price": 70
-                       }]
-                     }]
-                   }
+            shows: {inventory: []},
         }
+
+        this.fetchInventory()
     }
-//    componentDidMount(){
-//        console.log("mounted")
-//    }
+
+    fetchInventory() {
+        let self = this
+        let current = this.showDateInput.current
+        let showDate = current && current.value || toIsoDate(new Date())
+
+        fetch("inventory", {
+                method: "POST",
+                body: JSON.stringify({ showDate: showDate }),
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+        })
+        .then(response => response.json())
+        .then(inventory => self.setState({ shows: inventory }))
+    }
+
     render() {
       let { inventory } = this.state.shows
 
-      return <div>
-        { inventory.map(item => <ShowsTable genreShows={item}></ShowsTable>) }
-      </div>
+      return (
+          <div>
+            <br />
+            <label>Show date:</label>
+            <input className='inline' type='date' ref={this.showDateInput} defaultValue={ toIsoDate(new Date()) }/>
+            <button onClick={ () => this.fetchInventory() } id='showDateSubmit' className='inline'>Submit</button>
+            { inventory.map(item => <ShowsTable genreShows={item}></ShowsTable>) }
+          </div>
+      )
   }
 }

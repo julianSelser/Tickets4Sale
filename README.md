@@ -12,7 +12,7 @@ Run `sbt stage` on the root. Then you can cd into `cli/target/universal/stage/bi
 
 Usage: `tickets4sale-cli <input-csv> <query-date> <show-date>`
 
-You can find a sample `input.csv` in the `resources` folder. The input **should always have headers**
+You can find a sample `input.csv` in the `core/src/main/resources` folder. The input **should always have headers**
 
 ### Running the website
 
@@ -88,5 +88,7 @@ It consists of a frontend and a backend. Solves both second and bonus third use 
 Its a simple statically served **React SPA** without **Redux**. Everything is bundled from `/resources` and no build tool is needed (no `npm`, no `webpack`, thanks jesus)
 
 **DISCLAIMER:** As a consequence of not using a build tool, the setup is not suited for production. I couldn't find a decent `sbt` plugin that works
+
+While the excercise said that *the inventory would be set by the website and the user doesnt have to upload* I developed the feature anyways in order to test thoroughly, I think John will like it. **IMPORTANT NOTE**: Use `input.csv` to test for orders as the `original.csv` is set in the past   
 
 ### Backend 

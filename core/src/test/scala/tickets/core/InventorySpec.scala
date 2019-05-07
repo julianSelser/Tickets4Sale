@@ -48,7 +48,7 @@ class InventorySpec extends FlatSpec with Matchers {
       Show("Comedy of Errors", parse("2018-07-01"), comedy),
       Show("Everyman", parse("2018-08-01"), drama))
 
-    Inventory.withPrice(shows, queryDate, showDate) shouldBe
+    Inventory.withPrices(shows, queryDate, showDate) shouldBe
       Inventory(List(
         Genre(drama, List(ShowAvailability("Everyman", 100, 10, openForSale, price = Some(40)))),
         Genre(comedy, List(ShowAvailability("Comedy of Errors", 100, 10, openForSale, price = Some(50)))),

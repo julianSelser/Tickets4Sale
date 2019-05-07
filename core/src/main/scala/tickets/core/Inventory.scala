@@ -8,7 +8,7 @@ object Inventory {
   def of(shows: List[Show], queryDate: LocalDate, showDate: LocalDate): Inventory =
     of(shows, queryDate, showDate, _.availability(queryDate, showDate))
 
-  def withPrice(shows: List[Show], queryDate: LocalDate, showDate: LocalDate): Inventory =
+  def withPrices(shows: List[Show], queryDate: LocalDate, showDate: LocalDate): Inventory =
     of(shows, queryDate, showDate, _.availabilityWithPrice(queryDate, showDate))
 
   private def of(shows: List[Show],
