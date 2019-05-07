@@ -18,7 +18,9 @@ You can find a sample `input.csv` in the `resources` folder. The input **should 
 
 **start locally**: `sbt run` and open a browser in `localhost:9000`
 
-**for production**: `sbt stage` and then TODO
+**for production**: 
+ * You could execute clone the project on the target server and run `sudo sbt run 80` (port 80) 
+ * Or you could `sbt stage` and then move the entire `tickets4sale/web/target/universal/stage` to a java enabled environment and run the scripts in `tickets4sale/web/target/universal/stage/bin` 
 
 # Decisions
 
@@ -39,7 +41,7 @@ The idea is that each submodule can be worked on and built independently, ideall
 
 ## Core module
 
-Holds everything *business domain* related, mostly pure scala code. Will be used by the other modules to implement the use cases. The important thing is that we have a reusable core independent of any application
+Holds everything *business domain* related, save for a few helpers used cross project. Will be used by the other modules to implement the use cases. The important thing is that we have a reusable core independent of any application
 
 In order to fulfill all requirements, I found the best way to model the domain is to place an emphasis on the `Show`, with an interface like:
 

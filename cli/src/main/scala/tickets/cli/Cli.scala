@@ -6,6 +6,7 @@ import java.time.LocalDate
 import spray.json._
 import tickets.core.Inventory
 import tickets.core.format.InventoryJsonFormat
+import tickets.core.parser.ShowParser
 
 import scala.io.Source.fromFile
 import scala.util.Try

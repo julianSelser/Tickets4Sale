@@ -11,7 +11,7 @@ object TicketsRoutes {
     pathPrefix("inventory") {
       storeUploadedFile("csv", fileInfo => new File(fileInfo.fileName)) {
         case (_, file) =>
-          Files.lines(file.toPath).forEach(println)
+
           file.delete()
           complete(StatusCodes.OK)
       }
