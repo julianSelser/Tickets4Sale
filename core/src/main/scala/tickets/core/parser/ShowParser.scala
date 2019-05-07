@@ -14,7 +14,7 @@ object ShowParser {
       .iteratorWithHeaders
       .map(_.map(_ match { case (header, value) => (header.trim, value.trim)}))
       .map(row => {
-        Show(row("title"), LocalDate.parse(row("opening_day")), Genres.withName(row("genre")))
+        Show(row("title"), LocalDate.parse(row("opening_day")), Genres.withName(row("genre").toLowerCase))
       })
       .toList
   }

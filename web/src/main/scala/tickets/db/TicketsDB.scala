@@ -17,7 +17,7 @@ object TicketsDB extends TicketsDB {
       create table if not exists shows (
         id serial not null primary key,
         title varchar not null unique,
-        genre varchar not null unique,
+        genre varchar not null,
         opening_day date not null
       )
       """.execute.apply()
