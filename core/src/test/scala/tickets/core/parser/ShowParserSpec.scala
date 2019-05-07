@@ -17,13 +17,4 @@ class ShowParserSpec extends FlatSpec with Matchers {
       Show("Comedy of Errors", parse("2018-07-01"), comedy),
       Show("Everyman", parse("2018-08-01"), drama))
   }
-
-  it should "read csv a parse it with ids" in {
-    val shows = ShowParser.parseWithIndex(Source.fromResource("original.csv"))
-
-    shows shouldBe List(
-      Show("Cats", parse("2018-06-01"), musical, id = Some(1)),
-      Show("Comedy of Errors", parse("2018-07-01"), comedy, id = Some(2)),
-      Show("Everyman", parse("2018-08-01"), drama, id = Some(3)))
-  }
 }
